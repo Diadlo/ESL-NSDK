@@ -87,12 +87,12 @@ NRF_CLI_DEF(m_cli_uart,
 /**
  * @brief HID generic class interface number.
  * */
-#define HID_GENERIC_INTERFACE  0
+#define HID_GENERIC_INTERFACE  2
 
 /**
  * @brief HID generic class endpoint number.
  * */
-#define HID_GENERIC_EPIN       NRF_DRV_USBD_EPIN1
+#define HID_GENERIC_EPIN       NRF_DRV_USBD_EPIN3
 
 /**
  * @brief Mouse speed (value sent via HID when board button is pressed).
@@ -109,10 +109,10 @@ NRF_CLI_DEF(m_cli_uart,
 #define LED_USB_START    (BSP_BOARD_LED_0)
 #define LED_HID_REP_IN   (BSP_BOARD_LED_2)
 
-#define BTN_MOUSE_X_POS  0
-#define BTN_MOUSE_Y_POS  1
-#define BTN_MOUSE_LEFT   2
-#define BTN_MOUSE_RIGHT  3
+#define BTN_MOUSE_X_POS  2
+#define BTN_MOUSE_Y_POS  3
+#define BTN_MOUSE_LEFT   0
+#define BTN_MOUSE_RIGHT  1
 
 /**
  * @brief Left button mask in buttons report
@@ -521,7 +521,7 @@ static void init_bsp(void)
     APP_ERROR_CHECK(ret);
 
     INIT_BSP_ASSIGN_RELEASE_ACTION(BTN_MOUSE_LEFT );
-    INIT_BSP_ASSIGN_RELEASE_ACTION(BTN_MOUSE_RIGHT);
+    //INIT_BSP_ASSIGN_RELEASE_ACTION(BTN_MOUSE_RIGHT);
 
     /* Configure LEDs */
     bsp_board_init(BSP_INIT_LEDS);
@@ -564,6 +564,7 @@ static ret_code_t idle_handle(app_usbd_class_inst_t const * p_inst, uint8_t repo
 
 int main(void)
 {
+    //bsp_board_init(BSP_INIT_LEDS);
     ret_code_t ret;
     static const app_usbd_config_t usbd_config = {
         .ev_state_proc = usbd_user_ev_handler
@@ -592,6 +593,7 @@ int main(void)
 #if NRF_CLI_ENABLED
     init_cli();
 #endif
+
     NRF_LOG_INFO("Hello USB!");
 
     ret = app_usbd_init(&usbd_config);
@@ -607,6 +609,8 @@ int main(void)
 
     ret = app_usbd_class_append(class_inst_generic);
     APP_ERROR_CHECK(ret);
+
+    NRF_LOG_DEFAULT_BACKENDS_INIT();
 
     if (USBD_POWER_DETECTION)
     {
