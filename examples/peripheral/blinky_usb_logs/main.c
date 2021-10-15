@@ -194,10 +194,16 @@ int main(void)
 
     NRF_LOG_INFO("Start");
 
+    uint32_t i = 0;
     /* Toggle LEDs. */
     while (true)
     {
-        //NRF_LOG_INFO("Iter");
+        i++;
+        if (i % (1 << 20) == 0)
+        {
+            NRF_LOG_INFO("Iter");
+        }
+
         NRF_LOG_PROCESS();
         while (app_usbd_event_queue_process())
         {
