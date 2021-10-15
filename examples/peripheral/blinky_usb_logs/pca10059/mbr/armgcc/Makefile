@@ -157,8 +157,6 @@ default: nrf52840_xxaa
 help:
 	@echo following targets are available:
 	@echo		nrf52840_xxaa
-	@echo		flash_mbr
-	@echo		sdk_config - starting external tool for editing sdk_config.h
 	@echo		flash      - flashing binary
 
 TEMPLATE_PATH := $(SDK_ROOT)/components/toolchain/gcc
@@ -168,24 +166,21 @@ include $(TEMPLATE_PATH)/Makefile.common
 
 $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
-.PHONY: flash flash_mbr erase
+.PHONY: flash
 
 # Flash the program
+DFU_PORT ?= /dev/ttyACM0
+
 flash: default
 	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
-	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex --sectorerase
-	nrfjprog -f nrf52 --reset
-
-# Flash softdevice
-flash_mbr:
-	@echo Flashing: mbr_nrf52_2.4.1_mbr.hex
-	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/mbr/hex/mbr_nrf52_2.4.1_mbr.hex --sectorerase
-	nrfjprog -f nrf52 --reset
-
-erase:
-	nrfjprog -f nrf52 --eraseall
-
-SDK_CONFIG_FILE := ../config/sdk_config.h
-CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
-sdk_config:
-	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
+	nrfutil pkg generate $(OUTPUT_DIRECTORY)/app.zip \
+	    --hw-version 52 \
+	    --sd-req 0 \
+	    --application $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex \
+	    --application-version 1 \
+	    --softdevice $(SDK_ROOT)/components/softdevice/s113/hex/s113_nrf52_7.2.0_softdevice.hex \
+	    --sd-id 0x0102 \
+	      >/dev/null
+	nrfutil dfu usb-serial \
+	    --package $(OUTPUT_DIRECTORY)/app.zip \
+	    --port $(DFU_PORT)
