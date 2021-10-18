@@ -1,0 +1,78 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                /*
+                "/usr/include/linux",
+                "/usr/include/c++/9/tr1",
+                "${workspaceFolder}/**"
+                */
+                "${workspaceFolder}/examples/peripheral/dongle_logs",
+                "${workspaceFolder}/examples/peripheral/dongle_logs/pca10059/mbr/config",
+                "${workspaceFolder}/components",
+                "${workspaceFolder}/modules/nrfx/mdk",
+                "${workspaceFolder}/components/libraries/sortlist",
+                "${workspaceFolder}/components/softdevice/mbr/headers",
+                "${workspaceFolder}/components/libraries/atomic_fifo",
+                "${workspaceFolder}/components/libraries/usbd/class/cdc/acm",
+                "${workspaceFolder}/components/libraries/usbd/class/cdc",
+                "${workspaceFolder}/components/libraries/usbd/class",
+                "${workspaceFolder}/components/libraries/usbd",
+                "${workspaceFolder}/components/libraries/timer",
+                "${workspaceFolder}/components/libraries/button",
+                "${workspaceFolder}/components/libraries/strerror",
+                "${workspaceFolder}/components/libraries/timer",
+                "${workspaceFolder}/components/toolchain/cmsis/include",
+                "${workspaceFolder}/components/libraries/util",
+                "${workspaceFolder}/components/libraries/balloc",
+                "${workspaceFolder}/components/libraries/ringbuf",
+                "${workspaceFolder}/modules/nrfx/hal",
+                "${workspaceFolder}/components/libraries/bsp",
+                "${workspaceFolder}/components/libraries/log",
+                "${workspaceFolder}/modules/nrfx",
+                "${workspaceFolder}/modules/nrfx/drivers/include",
+                "${workspaceFolder}/components/libraries/experimental_section_vars",
+                "${workspaceFolder}/components/libraries/delay",
+                "${workspaceFolder}/integration/nrfx",
+                "${workspaceFolder}/integration/nrfx/legacy",
+                "${workspaceFolder}/components/drivers_nrf/nrf_soc_nosd",
+                "${workspaceFolder}/components/libraries/atomic",
+                "${workspaceFolder}/components/boards",
+                "${workspaceFolder}/components/libraries/memobj",
+                "${workspaceFolder}/external/fprintf",
+                "${workspaceFolder}/external/utf_converter",
+                "${workspaceFolder}/components/libraries/log/src"
+            ],
+            "defines": [
+                "-DAPP_TIMER_V2",
+                "-DAPP_TIMER_V2_RTC1_ENABLED",
+                "-DBOARD_PCA10059",
+                "-DCONFIG_GPIO_AS_PINRESET",
+                "-DFLOAT_ABI_HARD",
+                "-DMBR_PRESENT",
+                "-DNRF52840_XXAA",
+                "-D__HEAP_SIZE=8192",
+                "-D__STACK_SIZE=8192"
+            ],
+            "compilerArgs": [
+                "-mcpu=cortex-m4",
+                "-mthumb",
+                "-mabi=aapcs",
+                "-mfloat-abi=hard",
+                "-mfpu=fpv4-sp-d16",
+                "-ffunction-sections",
+                "-fdata-sections",
+                "-fno-strict-aliasing",
+                "-fno-builtin",
+                "-fshort-enums"
+            ],
+            "cStandard": "c99",
+            //"compilerPath": "/usr/local/gcc-arm-none-eabi-9-2020-q2-update/bin/arm-none-eabi-gcc",
+            //"intelliSenseMode": "gcc-arm"
+            "compilerPath": "/usr/bin/gcc",
+            "intelliSenseMode": "linux-gcc-x86"
+        }
+    ],
+    "version": 4
+}
