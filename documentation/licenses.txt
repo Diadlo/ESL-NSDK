@@ -19,5 +19,9 @@ The following licenses are used in the nRF5 SDK:
   vi) Third-party licenses: All third-party code contained in 
       ..\external (respective licenses included in each of the imported
       projects)
+
+ vii) 3-clause BSD license: USB logging backend code (..\components\libraries\log\nrf_log_backend_usb.h and
+      ..\components\libraries\log\src\nrf_log_backend_usb.c) and related samples (..\examples\peripheral\usb_logging),
+      license file is included (EM_License.txt)
  
  

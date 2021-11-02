@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2017 - 2021, Nordic Semiconductor ASA
+ * Copyright (c) 2016 - 2019, Nordic Semiconductor ASA
  *
  * All rights reserved.
  *
@@ -38,51 +38,38 @@
  *
  */
 
-#include "sdk_common.h"
-#if NRF_MODULE_ENABLED(NRF_LOG)
-#include "nrf_log_default_backends.h"
-#include "nrf_log_ctrl.h"
-#include "nrf_log_internal.h"
-#include "nrf_assert.h"
+/**@file
+ *
+ * @defgroup nrf_log_backend_uart Log UART backend
+ * @{
+ * @ingroup  nrf_log
+ * @brief Log UART backend.
+ */
 
-#if defined(NRF_LOG_BACKEND_RTT_ENABLED) && NRF_LOG_BACKEND_RTT_ENABLED
-#include "nrf_log_backend_rtt.h"
-NRF_LOG_BACKEND_RTT_DEF(rtt_log_backend);
+#ifndef NRF_LOG_BACKEND_USB_H
+#define NRF_LOG_BACKEND_USB_H
+
+#include "nrf_log_backend_interface.h"
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-#if defined(NRF_LOG_BACKEND_UART_ENABLED) && NRF_LOG_BACKEND_UART_ENABLED
-#include "nrf_log_backend_uart.h"
-NRF_LOG_BACKEND_UART_DEF(uart_log_backend);
-#endif
+extern const nrf_log_backend_api_t nrf_log_backend_usb_api;
 
-#if defined(NRF_LOG_BACKEND_USB_ENABLED) && NRF_LOG_BACKEND_USB_ENABLED
-#include "nrf_log_backend_usb_legacy.h"
-NRF_LOG_BACKEND_USB_DEF(usb_log_backend);
-#endif
+typedef struct {
+        nrf_log_backend_t backend;
+} nrf_log_backend_usb_t;
 
-void nrf_log_default_backends_init(void)
-{
-    int32_t backend_id = -1;
-    (void)backend_id;
-#if defined(NRF_LOG_BACKEND_RTT_ENABLED) && NRF_LOG_BACKEND_RTT_ENABLED
-    nrf_log_backend_rtt_init();
-    backend_id = nrf_log_backend_add(&rtt_log_backend, NRF_LOG_SEVERITY_DEBUG);
-    ASSERT(backend_id >= 0);
-    nrf_log_backend_enable(&rtt_log_backend);
-#endif
+#define NRF_LOG_BACKEND_USB_DEF(_name)                         \
+        NRF_LOG_BACKEND_DEF(_name, nrf_log_backend_usb_api, NULL)
 
-#if defined(NRF_LOG_BACKEND_UART_ENABLED) && NRF_LOG_BACKEND_UART_ENABLED
-    nrf_log_backend_uart_init();
-    backend_id = nrf_log_backend_add(&uart_log_backend, NRF_LOG_SEVERITY_DEBUG);
-    ASSERT(backend_id >= 0);
-    nrf_log_backend_enable(&uart_log_backend);
-#endif
+void nrf_log_backend_usb_init(void);
 
-#if defined(NRF_LOG_BACKEND_USB_ENABLED) && NRF_LOG_BACKEND_USB_ENABLED
-    nrf_log_backend_usb_init();
-    backend_id = nrf_log_backend_add(&usb_log_backend, NRF_LOG_SEVERITY_DEBUG);
-    ASSERT(backend_id >= 0);
-    nrf_log_backend_enable(&usb_log_backend);
-#endif
+#ifdef __cplusplus
 }
 #endif
+
+#endif //NRF_LOG_BACKEND_USB_H
+
+/** @} */
