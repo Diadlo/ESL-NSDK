@@ -63,6 +63,7 @@
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
+#include "nrf_log_backend_usb.h"
 #include "nrf_log_default_backends.h"
 
 #if NRF_CLI_ENABLED
@@ -627,6 +628,7 @@ int main(void)
 
     while (true)
     {
+        // Could also use LOG_BACKEND_USB_PROCESS(); instead of the loop below
         while (app_usbd_event_queue_process())
         {
             /* Nothing to do */

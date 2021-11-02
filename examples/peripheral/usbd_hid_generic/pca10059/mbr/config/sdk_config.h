@@ -1824,10 +1824,6 @@
 
 // </e>
 
-#ifndef NRF_LOG_BACKEND_USB_ENABLED
-#define NRF_LOG_BACKEND_USB_ENABLED 1
-#endif
-
 // <e> NRF_LOG_BACKEND_UART_ENABLED - nrf_log_backend_uart - Log UART backend
 //==========================================================
 #ifndef NRF_LOG_BACKEND_UART_ENABLED
