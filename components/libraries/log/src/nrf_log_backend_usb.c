@@ -30,7 +30,7 @@
 
 #include "sdk_common.h"
 
-#if NRF_MODULE_ENABLED(NRF_LOG) && defined(LOG_BACKEND_USB_ENABLED)
+#if NRF_MODULE_ENABLED(NRF_LOG) && LOG_BACKEND_USB_ENABLED
 
 #include "nrf_log_backend_usb.h"
 #include "nrf_log_backend_serial.h"

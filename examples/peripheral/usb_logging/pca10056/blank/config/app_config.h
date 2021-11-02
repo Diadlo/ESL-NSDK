@@ -117,7 +117,7 @@
 
 // <o> LOG_BACKEND_USB_INIT_STACK - Init the USB stack during USB log backend init procedure
 #ifndef LOG_BACKEND_USB_INIT_STACK
-#define LOG_BACKEND_USB_INIT_STACK 0
+#define LOG_BACKEND_USB_INIT_STACK 1
 #endif
 
 // <o> LOG_BACKEND_USB_UTILIZE_POWER_EVENTS - Start the USB backend based on power

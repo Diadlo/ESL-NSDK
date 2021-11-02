@@ -55,9 +55,9 @@ NRF_LOG_BACKEND_RTT_DEF(rtt_log_backend);
 NRF_LOG_BACKEND_UART_DEF(uart_log_backend);
 #endif
 
-#if defined(NRF_LOG_BACKEND_USB_ENABLED) && NRF_LOG_BACKEND_USB_ENABLED
-#include "nrf_log_backend_usb_legacy.h"
-NRF_LOG_BACKEND_USB_DEF(usb_log_backend);
+#if LOG_BACKEND_USB_ENABLED
+#include "nrf_log_backend_usb.h"
+LOG_BACKEND_USB_DEF(usb_log_backend);
 #endif
 
 void nrf_log_default_backends_init(void)
@@ -78,8 +78,8 @@ void nrf_log_default_backends_init(void)
     nrf_log_backend_enable(&uart_log_backend);
 #endif
 
-#if defined(NRF_LOG_BACKEND_USB_ENABLED) && NRF_LOG_BACKEND_USB_ENABLED
-    nrf_log_backend_usb_init();
+#if defined(LOG_BACKEND_USB_ENABLED) && LOG_BACKEND_USB_ENABLED
+    log_backend_usb_init();
     backend_id = nrf_log_backend_add(&usb_log_backend, NRF_LOG_SEVERITY_DEBUG);
     ASSERT(backend_id >= 0);
     nrf_log_backend_enable(&usb_log_backend);

@@ -63,17 +63,19 @@
 
 #include "nrf_drv_clock.h"
 
-LOG_BACKEND_USB_DEF(usb_log_backend);
-
 #if !LOG_BACKEND_USB_INIT_STACK
+
 static void usbd_user_ev_handler(app_usbd_event_type_t event);
+
 #endif /* !LOG_BACKEND_USB_INIT_STACK */
 
 /**
  * Timer-related definitions
  */
 APP_TIMER_DEF(gs_log_timer);
+
 static void log_timer_timeout_handler(void *p_context);
+
 static uint32_t gs_timer_ticks;
 
 /**
@@ -83,8 +85,6 @@ int main(void)
 {
     ret_code_t ret = NRF_LOG_INIT(NULL);
     APP_ERROR_CHECK(ret);
-
-    NRF_LOG_DEFAULT_BACKENDS_INIT();
 
     NRF_LOG_INFO("Starting up the test project with USB logging");
 
@@ -108,7 +108,7 @@ int main(void)
 
     /* Init USBD */
     static const app_usbd_config_t usbd_config = {
-        .ev_state_proc = usbd_user_ev_handler
+            .ev_state_proc = usbd_user_ev_handler
     };
 
     NRF_LOG_DEBUG("Initialize the USBD - Start");
@@ -117,18 +117,15 @@ int main(void)
     NRF_LOG_DEBUG("Initialize the USBD - End");
 #endif    /* !LOG_BACKEND_USB_INIT_STACK */
 
-    /* Init the USB log backend */
-    NRF_LOG_DEBUG("Initialize the USB log backend - Start");
-    log_backend_usb_init();
-    int32_t backend_fd = nrf_log_backend_add(&usb_log_backend, NRF_LOG_SEVERITY_INFO);
-    ASSERT(backend_fd >= 0);
-    nrf_log_backend_enable(&usb_log_backend);
-    NRF_LOG_DEBUG("Initialize the USB log backend - End");
+    NRF_LOG_DEFAULT_BACKENDS_INIT();
 
 #if !LOG_BACKEND_USB_INIT_STACK
-    /* Enable USB power detection */
-    ret = app_usbd_power_events_enable();
-    APP_ERROR_CHECK(ret);
+    /* Enable USB power detection if it wasn't already enabled */
+    if (!nrfx_usbd_is_enabled())
+    {
+        ret = app_usbd_power_events_enable();
+        APP_ERROR_CHECK(ret);
+    }
 #endif    /* !LOG_BACKEND_USB_INIT_STACK */
 
     bsp_board_init(BSP_INIT_LEDS);
