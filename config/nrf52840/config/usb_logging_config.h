@@ -28,36 +28,7 @@
  * SUCH DAMAGE
 */
 
-#ifndef LOG_BACKEND_USB_H
-#define LOG_BACKEND_USB_H
+#ifndef ESTC_NSDK_USB_LOGGING_CONFIG_H
+#define ESTC_NSDK_USB_LOGGING_CONFIG_H
 
-#include "nrf_log_backend_interface.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-extern const nrf_log_backend_api_t log_backend_usb_api;
-
-typedef struct
-{
-    nrf_log_backend_t backend;
-} log_backend_usb_t;
-
-#define LOG_BACKEND_USB_DEF(_name) \
-    NRF_LOG_BACKEND_DEF(_name, log_backend_usb_api, NULL)
-
-void log_backend_usb_init(void);
-
-#if LOG_BACKEND_USB_INIT_STACK
-void log_backend_usb_process(void);
-#define LOG_BACKEND_USB_PROCESS() log_backend_usb_process()
-#else
-#define LOG_BACKEND_USB_PROCESS()
-#endif    /* LOG_BACKEND_USB_INIT_STACK */
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif //LOG_BACKEND_USB_H
+#endif //ESTC_NSDK_USB_LOGGING_CONFIG_H
