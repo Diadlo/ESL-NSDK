@@ -207,6 +207,7 @@ help:
 	@echo		nrf52840_xxaa
 	@echo		sdk_config - starting external tool for editing sdk_config.h
 	@echo		dfu        - flashing binary by performing a firmware upgrade
+	@echo		flash      - flashing binary by performing a firmware upgrade
 
 TEMPLATE_PATH := $(SDK_ROOT)/components/toolchain/gcc
 
@@ -215,7 +216,9 @@ include $(TEMPLATE_PATH)/Makefile.common
 
 $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
-.PHONY: dfu erase
+.PHONY: flash dfu erase
+
+flash: dfu
 
 # Flash the program by performing a DFU
 dfu: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu.zip
