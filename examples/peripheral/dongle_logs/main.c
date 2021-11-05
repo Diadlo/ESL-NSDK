@@ -60,17 +60,22 @@
 #include "app_usbd.h"
 #include "app_usbd_serial_num.h"
 
+void logs_init()
+{
+    ret_code_t ret = NRF_LOG_INIT(NULL);
+    APP_ERROR_CHECK(ret);
+
+    NRF_LOG_DEFAULT_BACKENDS_INIT();
+}
+
 /**
  * @brief Function for application main entry.
  */
 int main(void)
 {
-    ret_code_t ret = NRF_LOG_INIT(NULL);
-    APP_ERROR_CHECK(ret);
+    logs_init();
 
     NRF_LOG_INFO("Starting up the test project with USB logging");
-
-    NRF_LOG_DEFAULT_BACKENDS_INIT();
 
     bsp_board_init(BSP_INIT_LEDS);
 
