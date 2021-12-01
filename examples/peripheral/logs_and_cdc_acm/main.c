@@ -33,7 +33,10 @@
  * @defgroup logs_and_cdc_acm main.c
  * @{
  * @ingroup logs_and_cdc_acm
- * @brief Example of using two ACMs simultaneously
+ * @brief Example of using two CDC ACM simultaneously
+ *
+ * CDC - Communication Device Class
+ * ACM - Abstract Control Model
  *
  * This example uses the first ACM for logging over USB and the second one
  * for bidirectional communication with user.
