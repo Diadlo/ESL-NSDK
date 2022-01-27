@@ -67,6 +67,7 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
+#include "nrf_log_backend_usb.h"
 
 
 #define ADVERTISING_LED                 BSP_BOARD_LED_0                         /**< Is on when device is advertising. */
@@ -557,6 +558,7 @@ static void idle_state_handle(void)
     {
         nrf_pwr_mgmt_run();
     }
+	LOG_BACKEND_USB_PROCESS();
 }
 
 
