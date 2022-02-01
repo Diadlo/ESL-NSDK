@@ -81,6 +81,7 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
+#include "nrf_log_backend_usb.h"
 
 
 #define DEVICE_NAME                     "ESTC"                                  /**< Name of device. Will be included in the advertising data. */
@@ -492,6 +493,7 @@ static void idle_state_handle(void)
     {
         nrf_pwr_mgmt_run();
     }
+	LOG_BACKEND_USB_PROCESS();
 }
 
 
