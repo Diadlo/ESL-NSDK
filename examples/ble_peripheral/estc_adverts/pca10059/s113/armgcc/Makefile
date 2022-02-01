@@ -108,8 +108,8 @@ INC_FOLDERS += \
   $(SDK_ROOT)/external/segger_rtt \
   $(SDK_ROOT)/external/fprintf \
   $(SDK_ROOT)/components/toolchain/cmsis/include \
-  $(SDK_ROOT)/components/softdevice/s140/headers/nrf52 \
-  $(SDK_ROOT)/components/softdevice/s140/headers \
+  $(SDK_ROOT)/components/softdevice/s113/headers/nrf52 \
+  $(SDK_ROOT)/components/softdevice/s113/headers \
   $(SDK_ROOT)/components/softdevice/common \
   $(SDK_ROOT)/components/nfc/t4t_parser/tlv \
   $(SDK_ROOT)/components/nfc/t4t_parser/hl_detection_procedure \

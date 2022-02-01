@@ -39,16 +39,13 @@
  */
 /** @file
  *
- * @defgroup ble_sdk_app_template_main main.c
+ * @defgroup estc_adverts main.c
  * @{
- * @ingroup ble_sdk_app_template
- * @brief Template project main file.
+ * @ingroup estc_templates
+ * @brief ESTC Advertisments template app.
  *
- * This file contains a template for creating a new application. It has the code necessary to wakeup
- * from button, advertise, get a connection restart advertising on disconnect and if no new
- * connection created go back to system-off mode.
- * It can easily be used as a starting point for creating a new application, the comments identified
- * with 'YOUR_JOB' indicates where and how you can customize.
+ * This file contains a template for creating a new BLE application with GATT services. It has
+ * the code necessary to advertise, get a connection, restart advertising on disconnect.
  */
 
 #include <stdbool.h>
@@ -436,6 +433,9 @@ static void advertising_init(void)
     init.config.ble_adv_fast_enabled  = true;
     init.config.ble_adv_fast_interval = APP_ADV_INTERVAL;
     init.config.ble_adv_fast_timeout  = APP_ADV_DURATION;
+
+    // TODO: Add more data to the advertisement data
+    // TODO: Add more data to the scan response data
 
     init.evt_handler = on_adv_evt;
 
