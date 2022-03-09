@@ -1,0 +1,11 @@
+# ARM GCC build artifacts
+_build
+
+# uECC stuff
+external/micro-ecc/micro-ecc/
+external/**/*.lib
+external/**/*.a
+
+# Emacs TAGS and environment
+TAGS
+.dir-locals.el
