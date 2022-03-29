@@ -1,4 +1,4 @@
-PROJECT_NAME     := estc_adverts_pca10059_s140
+PROJECT_NAME     := estc_service_pca10059_s140
 TARGETS          := nrf52840_xxaa
 OUTPUT_DIRECTORY := _build
 DFU_PORT         ?= /dev/ttyACM0
@@ -7,7 +7,7 @@ SDK_ROOT := ../../../../../..
 PROJ_DIR := ../../..
 
 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
-  LINKER_SCRIPT  := estc_adverts_gcc_nrf52.ld
+  LINKER_SCRIPT  := estc_service_gcc_nrf52.ld
 
 # Source files common to all targets
 SRC_FILES += \
@@ -109,8 +109,8 @@ INC_FOLDERS += \
   $(SDK_ROOT)/external/segger_rtt \
   $(SDK_ROOT)/external/fprintf \
   $(SDK_ROOT)/components/toolchain/cmsis/include \
-  $(SDK_ROOT)/components/softdevice/s113/headers/nrf52 \
-  $(SDK_ROOT)/components/softdevice/s113/headers \
+  $(SDK_ROOT)/components/softdevice/s140/headers/nrf52 \
+  $(SDK_ROOT)/components/softdevice/s140/headers \
   $(SDK_ROOT)/components/softdevice/common \
   $(SDK_ROOT)/components/nfc/t4t_parser/tlv \
   $(SDK_ROOT)/components/nfc/t4t_parser/hl_detection_procedure \
@@ -248,7 +248,7 @@ CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DMBR_PRESENT
 CFLAGS += -DNRF52840_XXAA
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
-CFLAGS += -DS113
+CFLAGS += -DS140
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs
@@ -274,8 +274,8 @@ ASMFLAGS += -DFLOAT_ABI_HARD
 ASMFLAGS += -DMBR_PRESENT
 ASMFLAGS += -DNRF52840_XXAA
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
-ASMFLAGS += -DS113
-ASMFLAGS += -DSOFTDEVICE_PRESENT
+ASMFLAGS += -DS140
+ASMFLA40 += -DSOFTDEVICE_PRESENT
 
 # Linker flags
 LDFLAGS += $(OPT)
@@ -324,10 +324,10 @@ $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
 	@echo Creating DFU package: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu
 	nrfutil pkg generate --hw-version 52 \
 						 --application-version 1 \
-						 --sd-req 0x0,0x102 \
-						 --sd-id 0x102 \
+						 --sd-req 0x0,0x100 \
+						 --sd-id 0x100 \
 						 --application $< \
-						 --softdevice $(SDK_ROOT)/components/softdevice/s113/hex/s113_nrf52_7.2.0_softdevice.hex $@
+						 --softdevice $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex $@
 
 dfu: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu
 	@echo Performing DFU with generated package
