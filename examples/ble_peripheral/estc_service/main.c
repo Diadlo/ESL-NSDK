@@ -552,7 +552,7 @@ int main(void)
     conn_params_init();
 
     // Start execution.
-    NRF_LOG_INFO("ESTC advertising example started");
+    NRF_LOG_INFO("ESTC GATT service example started");
     application_timers_start();
 
     advertising_start();

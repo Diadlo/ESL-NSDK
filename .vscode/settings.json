@@ -4,7 +4,8 @@
         "nrf_log_ctrl.h": "c",
         "nrf_pwr_mgmt.h": "c",
         "nrf_log.h": "c",
-        "app_error.h": "c"
+        "app_error.h": "c",
+        "peer_manager_handler.h": "c"
     },
     "cSpell.words": [
         "estc",

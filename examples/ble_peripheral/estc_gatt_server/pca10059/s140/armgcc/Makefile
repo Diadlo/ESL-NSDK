@@ -324,8 +324,8 @@ $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
 	@echo Creating DFU package: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu
 	nrfutil pkg generate --hw-version 52 \
 						 --application-version 1 \
-						 --sd-req 0x0,0x102 \
-						 --sd-id 0x102 \
+						 --sd-req 0x0,0x100 \
+						 --sd-id 0x100 \
 						 --application $< \
 						 --softdevice $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex $@
 
