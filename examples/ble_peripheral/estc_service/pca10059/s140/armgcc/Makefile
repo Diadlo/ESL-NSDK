@@ -1,4 +1,4 @@
-PROJECT_NAME     := estc_adverts_pca10059_s140
+PROJECT_NAME     := estc_service_pca10059_s140
 TARGETS          := nrf52840_xxaa
 OUTPUT_DIRECTORY := _build
 DFU_PORT         ?= /dev/ttyACM0
@@ -7,7 +7,7 @@ SDK_ROOT := ../../../../../..
 PROJ_DIR := ../../..
 
 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
-  LINKER_SCRIPT  := estc_adverts_gcc_nrf52.ld
+  LINKER_SCRIPT  := estc_service_gcc_nrf52.ld
 
 # Source files common to all targets
 SRC_FILES += \
@@ -324,8 +324,8 @@ $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
 	@echo Creating DFU package: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu
 	nrfutil pkg generate --hw-version 52 \
 						 --application-version 1 \
-						 --sd-req 0x0,0x102 \
-						 --sd-id 0x102 \
+						 --sd-req 0x0,0x100 \
+						 --sd-id 0x100 \
 						 --application $< \
 						 --softdevice $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex $@
 

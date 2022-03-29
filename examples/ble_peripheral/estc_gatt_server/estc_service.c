@@ -37,18 +37,11 @@
 #include "ble_gatts.h"
 #include "ble_srv_common.h"
 
-static ret_code_t estc_ble_add_characteristics(ble_estc_service_t *service);
-
 ret_code_t estc_ble_service_init(ble_estc_service_t *service)
 {
     ret_code_t error_code = NRF_SUCCESS;
-    // TODO: Add UUID to the BLE stack UUID table
-    // TODO: Add service to the BLE stack
-    service->connection_handle = BLE_CONN_HANDLE_INVALID;
-
-    // TODO: Add characteristics
-    error_code = estc_ble_add_characteristics(service);
-    APP_ERROR_CHECK(error_code);
+    // TODO: 3. Add UUID to the BLE stack UUID table using sd_ble_uuid_vs_add
+    // TODO: 4. Add service to the BLE stack using sd_ble_gatts_service_add
 
     // NRF_LOG_DEBUG("%s:%d | Service UUID: 0x%#04x", __FUNCTION__, __LINE__, service_uuid.uuid);
     // NRF_LOG_DEBUG("%s:%d | Service UUID type: 0x%#02x", __FUNCTION__, __LINE__, service_uuid.type);

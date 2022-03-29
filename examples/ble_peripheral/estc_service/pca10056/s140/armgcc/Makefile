@@ -1,4 +1,4 @@
-PROJECT_NAME     := estc_adverts_pca10056_s140
+PROJECT_NAME     := estc_service_pca10056_s140
 TARGETS          := nrf52840_xxaa
 OUTPUT_DIRECTORY := _build
 
@@ -6,7 +6,7 @@ SDK_ROOT := ../../../../../..
 PROJ_DIR := ../../..
 
 $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \
-  LINKER_SCRIPT  := estc_adverts_gcc_nrf52.ld
+  LINKER_SCRIPT  := estc_service_gcc_nrf52.ld
 
 # Source files common to all targets
 SRC_FILES += \
