@@ -216,22 +216,23 @@ include $(TEMPLATE_PATH)/Makefile.common
 
 $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
-.PHONY: flash dfu erase
+.PHONY: dfu
 
-flash: dfu
+DFU_PACKAGE := $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu
 
-# Flash the program by performing a DFU
-dfu: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu.zip
-	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
-	nrfutil dfu usb-serial -pkg $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu.zip -p $(DFU_PORT) -b 115200
+dfu_package: $(DFU_PACKAGE)
 
-$(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu.zip: default
-	nrfutil pkg generate --hw-version 52 --sd-req 0x00 --application-version 1 --application $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex $@
+$(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
+	@echo Creating DFU package: $(DFU_PACKAGE)
+	nrfutil pkg generate \
+	   --hw-version 52 \
+	   --application-version 1 \
+	   --sd-req 0x0,0x102 \
+	   --sd-id 0x102 \
+	   --application $< \
+	   --softdevice $(SDK_ROOT)/components/softdevice/s113/hex/s113_nrf52_7.2.0_softdevice.hex $@
 
-erase:
-	nrfjprog -f nrf52 --eraseall
+dfu: $(DFU_PACKAGE)
+	@echo Performing DFU with generated package
+	nrfutil dfu usb-serial -pkg $< -p $(DFU_PORT) -b 115200
 
-SDK_CONFIG_FILE := ../config/sdk_config.h
-CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
-sdk_config:
-	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)

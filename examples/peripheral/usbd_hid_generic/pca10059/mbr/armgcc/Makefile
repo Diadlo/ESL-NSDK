@@ -1,6 +1,8 @@
 PROJECT_NAME     := usbd_hid_generic_pca10059
 TARGETS          := nrf52840_xxaa
 OUTPUT_DIRECTORY := _build
+DFU_PACKAGE      := $(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu
+DFU_PORT         ?= /dev/ttyACM0
 
 SDK_ROOT := ../../../../../..
 PROJ_DIR := ../../..
@@ -214,21 +216,20 @@ include $(TEMPLATE_PATH)/Makefile.common
 
 $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
-.PHONY: flash
+.PHONY: dfu
 
-# Flash the program
-DFU_PORT ?= /dev/ttyACM0
+dfu_package: $(DFU_PACKAGE)
 
-flash: default
-	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
-	nrfutil pkg generate $(OUTPUT_DIRECTORY)/app.zip \
-	    --hw-version 52 \
-	    --sd-req 0 \
-	    --application $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex \
-	    --application-version 1 \
-	    --softdevice $(SDK_ROOT)/components/softdevice/s113/hex/s113_nrf52_7.2.0_softdevice.hex \
-	    --sd-id 0x0102 \
-	      >/dev/null
-	nrfutil dfu usb-serial \
-	    --package $(OUTPUT_DIRECTORY)/app.zip \
-	    --port $(DFU_PORT)
+$(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
+	@echo Creating DFU package: $(DFU_PACKAGE)
+	nrfutil pkg generate \
+	   --hw-version 52 \
+	   --application-version 1 \
+	   --sd-req 0x0,0x102 \
+	   --sd-id 0x102 \
+	   --application $< \
+	   --softdevice $(SDK_ROOT)/components/softdevice/s113/hex/s113_nrf52_7.2.0_softdevice.hex $@
+
+dfu: $(DFU_PACKAGE)
+	@echo Performing DFU with generated package
+	nrfutil dfu usb-serial -pkg $< -p $(DFU_PORT) -b 115200
