@@ -221,7 +221,7 @@ $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
 dfu_package: $(DFU_PACKAGE)
 
-$(OUTPUT_DIRECTORY)/nrf52840_xxaa.dfu: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
+$(DFU_PACKAGE): $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
 	@echo Creating DFU package: $(DFU_PACKAGE)
 	nrfutil pkg generate \
 	   --hw-version 52 \
