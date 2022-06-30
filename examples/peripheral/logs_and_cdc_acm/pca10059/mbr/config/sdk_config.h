@@ -5061,13 +5061,6 @@
 
 // </e>
 
-// <q> SYSTICK_ENABLED  - nrf_drv_systick - ARM(R) SysTick driver - legacy layer
- 
-
-#ifndef SYSTICK_ENABLED
-#define SYSTICK_ENABLED 0
-#endif
-
 // <e> TIMER_ENABLED - nrf_drv_timer - TIMER periperal driver - legacy layer
 //==========================================================
 #ifndef TIMER_ENABLED
